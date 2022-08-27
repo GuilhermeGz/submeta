@@ -235,13 +235,24 @@
                     @endif
                 </label>
             </div>
-            <div class="col-md-6 pl-0" style="margin-top: 15px">
-                <label class="control-label ">Autorização dos Pais (Em caso de menor de idade)
-                    @if($participante->anexoAutorizacaoPais)
-                        <a id="modeloDocumentoTemp" href="{{ route('baixar.documentosParticipante', ['pathDocumento' => $participante->anexoAutorizacaoPais]) }}"><i class="ml-1 fas fa-file-pdf fa-2x"></i></a>
-                    @endif
-                </label>
-            </div>
+
+            @if($trabalho->evento->tipo == "PIBIC-EM")
+                <div class="col-md-6 pl-0" style="margin-top: 15px">
+                    <label class="control-label ">Autorização dos Pais (Em caso de menor de idade)
+                        @if($participante->anexoAutorizacaoPais)
+                            <a id="modeloDocumentoTemp" href="{{ route('baixar.documentosParticipante', ['pathDocumento' => $participante->anexoAutorizacaoPais]) }}"><i class="ml-1 fas fa-file-pdf fa-2x"></i></a>
+                        @endif
+                    </label>
+                </div>
+            @else
+                <div class="col-md-6 pl-0" style="margin-top: 15px">
+                    <label class="control-label ">Autorizações Especiais
+                        @if($participante->autorizacaoEspecial)
+                            <a id="autorizacaoEspecialTemp" href="{{ route('baixar.documentosParticipante', ['pathDocumento' => $participante->autorizacaoEspecial]) }}"><i class="ml-1 fas fa-file-pdf fa-2x"></i></a>
+                        @endif
+                    </label>
+                </div>
+            @endif
         </div>
     @endif
 </div>

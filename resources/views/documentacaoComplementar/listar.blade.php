@@ -153,21 +153,36 @@
 												@enderror
 											</div>
 
-											<div class="col-md-6" style="margin-top: 15px">
-												<label class="control-label ">Autorização dos Pais (Em caso de menor de idade) @if($participante->anexoAutorizacaoPais) 
-													<a id="modeloDocumentoTemp" href="{{ route('baixar.documentosParticipante', ['pathDocumento' => $participante->anexoAutorizacaoPais]) }}">Arquivo atual</a>
-													@endif
-												</label>
-												<br>
-												<input @if($trabalho->status!="aprovado")disabled="disabled" @endif type="file" class="input-group-text" value="" name="autorizacaoPais" accept=".pdf" id="autorizacaoPais{{$participante->id}}"/>
-												@error('autorizacaoPais	')
-												<span class="invalid-feedback" role="alert" style="overflow: visible; display:block">
-														<strong>{{ $message }}</strong>
-													</span>
-												@enderror
-											</div>
+											@if($trabalho->evento->tipo == "PIBIC-EM")
+												<div class="col-md-6" style="margin-top: 15px">
+													<label class="control-label ">Autorização dos Pais (Em caso de menor de idade) @if($participante->anexoAutorizacaoPais)
+														<a id="modeloDocumentoTemp" href="{{ route('baixar.documentosParticipante', ['pathDocumento' => $participante->anexoAutorizacaoPais]) }}">Arquivo atual</a>
+														@endif
+													</label>
+													<br>
+													<input @if($trabalho->status!="aprovado")disabled="disabled" @endif type="file" class="input-group-text" value="" name="autorizacaoPais" accept=".pdf" id="autorizacaoPais{{$participante->id}}"/>
+													@error('autorizacaoPais	')
+													<span class="invalid-feedback" role="alert" style="overflow: visible; display:block">
+															<strong>{{ $message }}</strong>
+														</span>
+													@enderror
+												</div>
+											@else
+												<div class="col-md-6" style="margin-top: 15px">
+													<label class="control-label ">Autorizações especiais @if($participante->autorizacaoEspecial)
+															<a id="autorizacaoEspecialTemp" href="{{ route('baixar.documentosParticipante', ['pathDocumento' => $participante->autorizacaoEspecial]) }}">Arquivo atual</a>
+														@endif
+													</label>
+													<br>
+													<input @if($trabalho->status!="aprovado")disabled="disabled" @endif type="file" class="input-group-text" value="" name="autorizacaoEspecial" accept=".pdf,.doc,.docx,.zip,.rar" id="autorizacaoEspecial{{$participante->id}}"/>
+													@error('autorizacaoEspecial')
+													<span class="invalid-feedback" role="alert" style="overflow: visible; display:block">
+															<strong>{{ $message }}</strong>
+														</span>
+													@enderror
+												</div>
+											@endif
 										</div>
-
 
 										<br>
 										<div class="modal-footer">

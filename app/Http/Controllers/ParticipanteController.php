@@ -129,10 +129,12 @@ class ParticipanteController extends Controller
         if($request->autorizacaoPais != null){
             $participante->anexoAutorizacaoPais = Storage::putFileAs($pasta, $request->autorizacaoPais, "Autorização_dos_Pais.pdf");
         }
+        if($request->autorizacaoEspecial != null){
+            $participante->autorizacaoEspecial = Storage::putFileAs($pasta, $request->autorizacaoEspecial, "Autorizações_especiais." .  $request->file('autorizacaoEspecial')->getClientOriginalExtension());
+        }
         
         $participante->update();
         
-        //dd($request);
         return redirect()->back()->with(['sucesso'=>"Documentação complementar enviada com sucesso"]);
     }
 }
